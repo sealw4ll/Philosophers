@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:19:04 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/21 13:33:04 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/21 13:39:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	run_thread(t_philo *philo)
 	while (++i < philo->num)
 	{
 		philo->index = i;
+		philo->last_eat[i] = get_time();
 		pthread_create(&(thread[i]), NULL, &routine, (void *)philo);
 		usleep(100);
 	}
