@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:29:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/21 13:06:38 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/21 14:32:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int	main(int ac, char **av)
 	}
 	init_vars(&philo, ac, av);
 	run_thread(&philo);
+	free_funct(&philo);
 	return (0);
 }

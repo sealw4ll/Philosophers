@@ -32,8 +32,8 @@ long long	get_time();
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		message(long long time, int thread_id, char *message, t_philo *philo);
-void		timer(t_philo *philo ,int action_time);
-void		free_exit(t_philo *philo);
+int			timer(t_philo *philo ,int action_time);
+void		free_funct(t_philo *philo);
 
 //main
 void	error_check(t_philo *philo);

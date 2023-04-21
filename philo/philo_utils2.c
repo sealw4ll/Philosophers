@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:01:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/21 13:16:46 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/21 15:54:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	message(long long time, int thread_id, char *message, t_philo *philo)
 	pthread_mutex_unlock(&philo->msg);
 }
 
-void	timer(t_philo *philo,int action_time)
+int	timer(t_philo *philo,int action_time)
 {
 	long long	start;
 
@@ -64,12 +64,15 @@ void	timer(t_philo *philo,int action_time)
 	while (!philo->dead)
 	{
 		if (get_time() - start > (long long)action_time)
-			return ;
+			return (1);
 		usleep(50);
 	}
+	if (!philo->dead)
+		return (0);
+	return (1);
 }
 
-void	free_exit(t_philo *philo)
+void	free_funct(t_philo *philo)
 {
 	int i;
 

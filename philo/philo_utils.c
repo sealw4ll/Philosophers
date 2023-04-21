@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:31:04 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/21 13:06:22 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/21 13:55:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_atoi(const char *str)
 	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		++str;
 	if (*str == '-')
-		neg *= -1;
+		return (-2);
 	if (*str == '-' || *str == '+')
 		++str;
 	while (*str >= '0' && *str <= '9')
