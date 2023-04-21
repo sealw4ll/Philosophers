@@ -8,7 +8,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 PNAME = philo
 
-EXTRA = -lpthread -fsanitize=thread
+EXTRA = -lpthread #-fsanitize=thread
 
 all: $(NAME)
 
