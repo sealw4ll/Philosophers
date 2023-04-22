@@ -6,15 +6,15 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:31:04 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/21 13:55:34 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 11:45:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long get_time()
+long long	get_time(void)
 {
-	struct timeval  time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
@@ -32,11 +32,11 @@ int	ft_strlen(const char *s)
 
 int	ft_atoi(const char *str)
 {
-	int		neg;
 	long	total;
 
+	if (!str)
+		return (-1);
 	total = 0;
-	neg = 1;
 	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		++str;
 	if (*str == '-')
@@ -47,12 +47,12 @@ int	ft_atoi(const char *str)
 	{
 		total = (total * 10) + (*str - '0');
 		++str;
-		if (total > INT_MAX || total < INT_MIN)
+		if (total > INT_MAX)
 			return (-2);
 	}
 	if (*str && (*str < '0' || *str > '9'))
-			return (-2);
-	return ((int)(neg * total));
+		return (-2);
+	return ((int)(total));
 }
 
 void	ft_putendl_fd(char *s, int fd)

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:29:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 05:43:38 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 11:44:37 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,11 @@ void	init_vars(t_philo *philo, int ac, char **av)
 	philo->time_sleep = ft_atoi(av[4]);
 	philo->start_time = get_time();
 	philo->dead = 0;
-	philo->last_eat = malloc(sizeof(long long) * philo->num);
+	philo->must_eat = ft_atoi(av[5]);
 	if (ac == 6)
-	{
-		philo->must_eat = ft_atoi(av[5]);
 		philo->check_full = 0;
-	}
 	else
-	{
-		philo->must_eat = -1;
 		philo->check_full = -1;
-	}
 	if (philo->num < 1 || philo->time_death < 60 || philo->time_eat < 60 || \
 		philo->time_sleep < 60 || philo->must_eat < -1)
 	{
@@ -50,13 +44,39 @@ void	init_vars(t_philo *philo, int ac, char **av)
 		error_check(philo);
 		exit (1);
 	}
+	philo->last_eat = malloc(sizeof(long long) * philo->num);
 	init_thread(philo);
 	return ;
+}
+
+void	free_funct(t_philo *philo)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philo->num)
+		pthread_mutex_destroy(&(philo->fork[i]));
+	free(philo->fork);
+	free(philo->last_eat);
+	pthread_mutex_destroy(&philo->msg);
+	pthread_mutex_destroy(&philo->eat_check);
+}
+
+void	*hardcode(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	message(get_time(), 1, "has taken a fork", philo);
+	usleep(philo->time_death * 1000);
+	message(get_time(), 1, "died", philo);
+	return (NULL);
 }
 
 int	main(int ac, char **av)
 {
 	t_philo			philo;
+	pthread_t		thread;
 
 	if (ac != 5 && ac != 6)
 	{
@@ -67,7 +87,13 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	init_vars(&philo, ac, av);
-	run_thread(&philo);
+	if (philo.num == 1)
+	{
+		pthread_create(&thread, NULL, &hardcode, (void *)&philo);
+		pthread_join(thread, NULL);
+	}
+	else
+		run_thread(&philo);
 	free_funct(&philo);
 	return (0);
 }

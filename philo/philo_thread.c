@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:19:04 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 06:43:51 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 11:45:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	makan(t_philo *philo, int thread_id)
 {
 	pthread_mutex_lock(&(philo->fork[thread_id]));
-	// pthread_mutex_lock(&philo->eat_check);
 	message(get_time(), thread_id + 1, "has taken a fork", philo);
-	// pthread_mutex_unlock(&philo->eat_check);
 	pthread_mutex_lock(&(philo->fork[((thread_id + 1) % philo->num)]));
 	message(get_time(), thread_id + 1, "has taken a fork", philo);
 	message(get_time(), thread_id + 1, "is eating", philo);
@@ -31,13 +29,9 @@ void	makan(t_philo *philo, int thread_id)
 
 void	tidur_fikir(t_philo *philo, int thread_id)
 {
-	// pthread_mutex_lock(&philo->eat_check);
 	message(get_time(), thread_id + 1, "is sleeping", philo);
-	// pthread_mutex_unlock(&philo->eat_check);
 	usleep(1000 * philo->time_sleep);
-	// pthread_mutex_lock(&philo->eat_check);
 	message(get_time(), thread_id + 1, "is thinking", philo);
-	// pthread_mutex_unlock(&philo->eat_check);
 }
 
 void	*routine(void *arg)
@@ -71,8 +65,8 @@ void	*routine(void *arg)
 
 void	check_dead(t_philo *philo)
 {
-	int i;
-	int loop;
+	int	i;
+	int	loop;
 
 	loop = 1;
 	while (loop)
@@ -94,7 +88,6 @@ void	check_dead(t_philo *philo)
 			pthread_mutex_unlock(&philo->eat_check);
 			if (return_dead(philo))
 				print_dead(philo, i + 1);
-			// usleep(philo->time_death * 1000);
 		}
 	}
 }
@@ -103,6 +96,7 @@ void	run_thread(t_philo *philo)
 {
 	pthread_t	*thread;
 	int			i;
+
 	thread = malloc(sizeof(pthread_t) * philo->num);
 	i = -1;
 	while (++i < philo->num)
