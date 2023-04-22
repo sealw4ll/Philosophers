@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:01:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/21 15:54:16 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 05:48:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	timer(t_philo *philo,int action_time)
 			return (1);
 		usleep(50);
 	}
-	if (!philo->dead)
+	if (philo->dead)
 		return (0);
 	return (1);
 }
