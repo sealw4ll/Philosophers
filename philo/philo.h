@@ -37,9 +37,11 @@ void		free_funct(t_philo *philo);
 
 //main
 void	error_check(t_philo *philo);
+void	print_dead(t_philo *philo, int id);
 
 //thread
 void	run_thread(t_philo *philo);
 void	check_dead(t_philo *philo);
+int		return_dead(t_philo *philo);
 
 #endif

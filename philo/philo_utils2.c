@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:01:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 05:48:44 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 06:43:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,35 @@ static void	ft_putnbr_fd(long long n, int fd)
 	}
 }
 
+void	print_dead(t_philo *philo, int id)
+{
+	pthread_mutex_lock(&philo->eat_check);
+	ft_putnbr_fd((get_time() - philo->start_time), 1);
+	ft_putstr_fd(" ", 1);
+	ft_putnbr_fd(id, 1);
+	ft_putstr_fd(" ", 1);
+	ft_putendl_fd("died", 1);
+	pthread_mutex_unlock(&philo->eat_check);
+}
+
 void	message(long long time, int thread_id, char *message, t_philo *philo)
 {
-	pthread_mutex_lock(&philo->msg);
+	if (return_dead(philo))
+		return ;
+	pthread_mutex_lock(&philo->eat_check);
+	// if (philo->dead)
+	// {
+	// 	pthread_mutex_unlock(&philo->eat_check);
+	// 	return ;
+	// }
+	// pthread_mutex_unlock(&philo->eat_check);
+	// pthread_mutex_lock(&philo->msg);
 	ft_putnbr_fd((time - philo->start_time), 1);
 	ft_putstr_fd(" ", 1);
 	ft_putnbr_fd(thread_id, 1);
 	ft_putstr_fd(" ", 1);
 	ft_putendl_fd(message, 1);
-	pthread_mutex_unlock(&philo->msg);
+	pthread_mutex_unlock(&philo->eat_check);
 }
 
 int	timer(t_philo *philo,int action_time)
@@ -83,4 +103,16 @@ void	free_funct(t_philo *philo)
 	free(philo->last_eat);
 	pthread_mutex_destroy(&philo->msg);
 	pthread_mutex_destroy(&philo->eat_check);
+}
+
+int	return_dead(t_philo *philo)
+{
+	int ret;
+	
+	ret = 0;
+	pthread_mutex_lock(&philo->eat_check);
+	if (philo->dead)
+		ret = 1;
+	pthread_mutex_unlock(&philo->eat_check);
+	return (ret);
 }
