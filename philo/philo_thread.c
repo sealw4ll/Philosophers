@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:19:04 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 05:49:16 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 05:56:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	makan(t_philo *philo, int thread_id)
 	pthread_mutex_lock(&philo->eat_check);
 	philo->last_eat[thread_id] = get_time();
 	pthread_mutex_unlock(&philo->eat_check);
-	timer(philo, philo->time_eat);
+	usleep(1000 * philo->time_eat);
 	pthread_mutex_unlock(&(philo->fork[thread_id]));
 	pthread_mutex_unlock(&(philo->fork[((thread_id + 1) % philo->num)]));
 }
@@ -32,7 +32,7 @@ void	tidur_fikir(t_philo *philo, int thread_id)
 	if (!philo->dead)
 	{
 		message(get_time(), thread_id + 1, "is sleeping", philo);
-		timer(philo, philo->time_sleep);
+		usleep(1000 * philo->time_sleep);
 		message(get_time(), thread_id + 1, "is thinking", philo);
 	}
 }
@@ -88,6 +88,7 @@ void	check_dead(t_philo *philo)
 				message(get_time(), i + 1, "died", philo);
 			}
 			pthread_mutex_unlock(&philo->eat_check);
+			usleep(100);
 		}
 	}
 }
@@ -101,7 +102,7 @@ void	run_thread(t_philo *philo)
 	while (++i < philo->num)
 	{
 		philo->index = i;
-		philo->last_eat[i] = get_time();
+		philo->last_eat[i] = philo->start_time;
 		pthread_create(&(thread[i]), NULL, &routine, (void *)philo);
 		usleep(500);
 	}
