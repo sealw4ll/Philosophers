@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:36:06 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 15:29:25 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 15:37:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		message(long long time, int thread_id, \
 	char *message, t_philo *philo);
 int			timer(t_philo *philo, int action_time);
 void		free_funct(t_philo *philo);
-void	ft_putnbr_fd(long long n, int fd);
+void		ft_putnbr_fd(long long n, int fd);
 
 //main
 void		error_check(t_philo *philo);
