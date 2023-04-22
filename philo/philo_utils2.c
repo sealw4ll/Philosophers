@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:01:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 11:52:12 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 15:12:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	error_check(t_philo *philo)
 		ft_putendl_fd("Invalid num_of_times_philo_must_eat (minimum 0)", 2);
 }
 
-static void	ft_putnbr_fd(long long n, int fd)
+void	ft_putnbr_fd(long long n, int fd)
 {
 	if (n < 0)
 	{

@@ -12,7 +12,7 @@ EXTRA = -lpthread #-fsanitize=thread -g
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(SRC) $(OBJ)
 	gcc $(OBJ) $(CFLAGS) -o $(PNAME) $(EXTRA)
 
 clean:
