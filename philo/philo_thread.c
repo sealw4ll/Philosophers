@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:19:04 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 11:45:59 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 12:15:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	thread_id = philo->index;
 	num_eat = 0;
-	while (!return_dead(philo))
+	while (!return_dead(philo) && num_eat != -1)
 	{
 		pthread_mutex_lock(&philo->eat_check);
 		if (philo->check_full >= 0 && num_eat == philo->must_eat)
 		{
 			++philo->check_full;
-			break ;
+			num_eat = -1;
 		}
 		pthread_mutex_unlock(&philo->eat_check);
 		if (!return_dead(philo))
@@ -58,8 +58,6 @@ void	*routine(void *arg)
 			tidur_fikir(philo, thread_id);
 		++num_eat;
 	}
-	if (philo->dead || (philo->check_full >= 0 && num_eat == philo->must_eat))
-		pthread_mutex_unlock(&philo->eat_check);
 	return (NULL);
 }
 
@@ -75,19 +73,17 @@ void	check_dead(t_philo *philo)
 		while (loop && ++i < philo->num)
 		{
 			pthread_mutex_lock(&philo->eat_check);
-			if (philo->check_full != -1 && philo->check_full == philo->must_eat)
+			if ((philo->check_full != -1 && \
+				philo->check_full == philo->must_eat) || \
+					get_time() - philo->last_eat[i] > philo->time_death)
 			{
 				loop = 0;
 				philo->dead = 1;
-			}
-			else if (get_time() - philo->last_eat[i] > philo->time_death)
-			{
-				philo->dead = 1;
-				loop = 0;
 			}
 			pthread_mutex_unlock(&philo->eat_check);
-			if (return_dead(philo))
+			if ((philo->check_full != philo->must_eat) && return_dead(philo))
 				print_dead(philo, i + 1);
+			usleep(200);
 		}
 	}
 }
@@ -106,7 +102,7 @@ void	run_thread(t_philo *philo)
 		philo->last_eat[i] = philo->start_time;
 		pthread_mutex_unlock(&philo->eat_check);
 		pthread_create(&(thread[i]), NULL, &routine, (void *)philo);
-		usleep(100);
+		usleep(1000);
 	}
 	check_dead(philo);
 	i = -1;

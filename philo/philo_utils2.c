@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:01:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 11:40:35 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/22 11:52:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,11 @@ static void	ft_putnbr_fd(long long n, int fd)
 
 void	print_dead(t_philo *philo, int id)
 {
-	pthread_mutex_lock(&philo->eat_check);
 	ft_putnbr_fd((get_time() - philo->start_time), 1);
 	ft_putstr_fd(" ", 1);
 	ft_putnbr_fd(id, 1);
 	ft_putstr_fd(" ", 1);
 	ft_putendl_fd("died", 1);
-	pthread_mutex_unlock(&philo->eat_check);
 }
 
 void	message(long long time, int thread_id, char *message, t_philo *philo)
