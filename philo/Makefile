@@ -1,4 +1,5 @@
-SRC = philo_main.c philo_utils.c philo_utils2.c philo_thread.c
+SRC = philo_main.c philo_utils.c philo_utils2.c philo_thread.c \
+		philo_norm_did_this_to_me.c
 
 OBJ = $(SRC:.c=.o)
 
