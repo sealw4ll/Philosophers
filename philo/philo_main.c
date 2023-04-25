@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 06:29:12 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 15:32:53 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/25 18:51:56 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	*hardcode(void *arg)
 
 	philo = (t_philo *)arg;
 	message(get_time(), 1, "has taken a fork", philo);
-	usleep(philo->time_death * 1000);
+	timer(philo, philo->time_death + 1);
 	message(get_time(), 1, "died", philo);
 	return (NULL);
 }

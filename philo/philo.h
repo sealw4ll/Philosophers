@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: wting <wting@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 11:36:06 by codespace         #+#    #+#             */
-/*   Updated: 2023/04/22 15:37:08 by codespace        ###   ########.fr       */
+/*   Updated: 2023/04/25 18:38:35 by wting            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_putendl_fd(char *s, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		message(long long time, int thread_id, \
 	char *message, t_philo *philo);
-int			timer(t_philo *philo, int action_time);
+void		timer(t_philo *philo, int action_time);
 void		free_funct(t_philo *philo);
 void		ft_putnbr_fd(long long n, int fd);
 
